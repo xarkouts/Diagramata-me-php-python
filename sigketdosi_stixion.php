@@ -23,27 +23,11 @@
 
   <button type="submit" name="sub">καταχωρησης</button>
   <button type="submit" name="ekt">Εκτελεσει</button>
-  <button type="submit" name="prin">προβολη</button>
+  
 
 </form>
 
 <?php
-
-
-       
-    
-     $t="";
-     $t=json_encode($t);
-     if(file_put_contents("datastatic.json",$t)){
-
-        print(" to arxio dimiuoyrgithike me epitixia");
-
-
-
-     }else{
-       $t=" ";
-     }
-
 
  
 
@@ -53,36 +37,30 @@
 
 if(isset($_POST["sub"])){
 
-    print("test1");
+
 
     if(isset($_POST["xr"]) and isset($_POST["ap"])){
 
-      $pink=array(
-
-        "xronia"=>$_POST["xr"],
-        "apasxolisi"=>$_POST["ap"]
-          
-
-      );
-
-        if(file_exists("datastatic.json")){
-
-               $yparxon=file_get_contents("datastatic.json");
-               $pin_data[]=json_decode($yparxon,true);
-               $pin_data[]=$pink;
-               $telika_data=json_encode($pin_data);
-               if(file_put_contents("datastatic.json",$telika_data)){
-
-                print("telos");
-               }
+      $xronia=$_POST["xr"];
+      $apasxolisi=$_POST["ap"];
         
+      $data = file_get_contents('datastatic.json');
+      $data_array = json_decode($data, true);
+      $data_new = array(
         
-
-
-
+             'xroia' => $xronia,
+            'apasxolisi' =>$apasxolisi
+        
+        );
+        $data_array[] = $data_new;
+        $new_data = json_encode($data_array);
+        if(file_put_contents ('datastatic.json', $new_data)){
+          echo "Η προσάρτηση δεδομένων ολοκληρώθηκε με επιτυχία";
         }
-        
-            
+     
+
+
+    
 
 
     }
@@ -91,16 +69,15 @@ if(isset($_POST["sub"])){
 }
 
 if(isset($_POST["ekt"])){
-
-
-      print("test2");
+   shell_exec("python grafimata.py");
+   print("<img src='grafima.png' alt='test'> ");
+   
+  
+  
+      
 }
 
-if(isset($_POST["prin"])){
 
-      print("test3");
-    
-}
 
 
 
